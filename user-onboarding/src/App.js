@@ -1,13 +1,10 @@
 import React from 'react';
 import './App.css';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import axios from 'axios'
+import Form from './Component/Form';
 
 function App() {
   return (
-    <div className="App">
-      
-    </div>
+    <Form />
   );
 }
 
