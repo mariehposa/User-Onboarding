@@ -4,9 +4,15 @@ import * as yup from 'yup';
 
 const userApi = 'https://reqres.in/api/users';
 
-const 
+const initialUserForm = {
+    name: '',
+    email: '',
+    password: '',
+}
 
 export default function UserForm () {
+
+    
     return (
         <div>
             <NewUserForm />
