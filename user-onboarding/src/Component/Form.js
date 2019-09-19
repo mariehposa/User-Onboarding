@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 export default function Form () {
     return (
-        <div>
+        <Form>
             <label>
                 Name
                 <Field name='name' type='text' placeholder='Enter your Name' />
@@ -23,6 +23,7 @@ export default function Form () {
                 Terms of service
                 <Field name='checkbox' type='checkbox' />
             </label>
-        </div>
+            <button type='submit'>Submit</button>
+        </Form>
     );
 }
