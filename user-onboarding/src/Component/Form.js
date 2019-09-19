@@ -9,20 +9,21 @@ const initialUserForm = {
     name: '',
     email: '',
     password: '',
+    role: '',
     terms: false,
 }
 
 export default function UserForm () {
     const [userList, setUserList] = useState([]);
-    const [userForm, setuserForm] = useState('');
+    //const [userForm, setuserForm] = useState('');
 
     useEffect(() => {
         axios.get(userApi)
             .then(res => {
-                console.log(res.data);
+                setUserList(res.data);
             })
             .catch(err => {
-                console.log(err.message);
+                //console.log(err.message);
             })
     }, []);
 
@@ -32,6 +33,7 @@ export default function UserForm () {
             name: formValues.name,
             email: formValues.email,
             password: formValues.password,
+            role: formValues.role,
         };
         
         axios.post(userApi, userToSubmit)
@@ -79,6 +81,10 @@ const validate = (formValues) => {
         errors.password = 'Please enter a valid password!';
     }
 
+    if (!formValues.role) {
+        errors.role = 'role is required'
+    }
+
     if (!formValues.terms){
         errors.terms = "Read and accept terms"
     }
@@ -91,6 +97,7 @@ const validation = yup.object().shape({
     name: yup.string().required('Please enter correct name!'),
     email: yup.string().required('Please enter valid email!').email("Enter a valid email containing @"),
     password: yup.string().required('Please input correct password!'),
+    role: yup.string().required('please select one option'),
     terms: yup.boolean().required("kindly check the box")
 })
 
@@ -120,6 +127,15 @@ function NewUserForm({onSubmit}) {
                             Password
                             <Field name='password' type='text' placeholder='Input your Password' />
                             <ErrorMessage name='password' component='div' />
+                        </label>
+                        <br/>
+                        <label>
+                            Role
+                            <Field component="select" name="role">
+                            <option value="Student">Student</option>
+                            <option value="TL">Team Lead</option>
+                            <option value="SL">Section Lead</option>
+                            </Field>
                         </label>
                         <br/>
                         <label>
