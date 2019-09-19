@@ -51,7 +51,7 @@ export default function UserForm () {
                     ? userList.map(user => (
                         <div key = {user.id} > {user.name} email is {user.email} with password {user.password} </div>
                     ))
-                    :   'Oops! No friends yet!'
+                    :   'Oops! No friends yet!' 
             }
         </div>
     );
