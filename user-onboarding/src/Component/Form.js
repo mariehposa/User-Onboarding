@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
+import axios from 'axios';
 
 const userApi = 'https://reqres.in/api/users';
 
@@ -13,6 +14,20 @@ const initialUserForm = {
 export default function UserForm () {
     const [userList, setUserList] = useState([]);
     const [userForm, setuserForm] = useState('');
+
+    useEffect(() => {
+        axios.get(userApi)
+            .then(res => {
+                console.log(res.data);
+            })
+            .catch(err => {
+                console.log(err.message);
+            })
+    }, []);
+
+    const addUser = () => {
+        const
+    }
 
     return (
         <div>
