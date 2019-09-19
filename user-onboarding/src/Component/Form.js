@@ -25,7 +25,7 @@ export default function UserForm () {
             })
     }, []);
 
-    //For onSubmit: to add new user to current user
+    //For onSubmit: to add new user from fields and add to current user
     const addUser = (formValues, actions) => {
         const userToSubmit = {
             name: formValues.name,
@@ -48,17 +48,45 @@ export default function UserForm () {
     );
 }
 
+const validate = (formValues) => {
+    const errors = {};
 
+    //checking if name is correct
+    if (!formValues.name) {
+        errors.name = 'Please enter a valid name!';
+    } else if (formValues.name.length < 2) {
+        errors.name = 'Oops! That is short!';
+    }
+
+    //checking if email is valid
+    if (!formValues.email) {
+        errors.email = 'Please enter a valid email!';
+    } else if (formValues.email.length < 2) {
+        errors.email = 'Oops! That is short!';
+    }
+
+    //checking if password is valid
+    if (!formValues.password) {
+        errors.password = 'Please enter a valid password!';
+    }
+
+    return errors;
+}
+
+//to check for letters and numbers
 const validation = yup.object().shape({
     name: yup.string().required('Please enter correct name!'),
     email: yup.string().required('Please enter valid email!'),
     password: yup.string().required('Please input correct password!'),
 })
 
-function NewUserForm() {
+function NewUserForm({onSubmit}) {
     return(
         <Formik
-            validationSchema={validation}
+            validationSchema= {validation}
+            initialValues={{name:"", email: "", password: ""}}
+            validate= {validate}
+            onSubmit={onSubmit}
             render={props => {
                 return (
                     <Form>
