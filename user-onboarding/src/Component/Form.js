@@ -9,7 +9,7 @@ const initialUserForm = {
     name: '',
     email: '',
     password: '',
-    terms: false
+    terms: false,
 }
 
 export default function UserForm () {
@@ -45,6 +45,14 @@ export default function UserForm () {
     return (
         <div>
             <NewUserForm onSubmit={addUser} />
+
+            {
+                userList.length
+                    ? userList.map(user => (
+                        <div key = {user.id} > {user.name} email is {user.email} with password {user.password} </div>
+                    ))
+                    :   'Oops! No friends yet!'
+            }
         </div>
     );
 }
@@ -83,7 +91,7 @@ const validation = yup.object().shape({
     name: yup.string().required('Please enter correct name!'),
     email: yup.string().required('Please enter valid email!').email("Enter a valid email containing @"),
     password: yup.string().required('Please input correct password!'),
-    terms: yup.boolean().required("Rewuired field")
+    terms: yup.boolean().required("kindly check the box")
 })
 
 function NewUserForm({onSubmit}) {
