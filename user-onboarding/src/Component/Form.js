@@ -1,6 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
+
+const 
+
+export default function UserForm () {
+    return (
+        <div>
+            <NewUserForm />
+        </div>
+    );
+}
 
 const validation = yup.object().shape({
     name: yup.string().required('Please enter correct name!'),
@@ -8,9 +18,10 @@ const validation = yup.object().shape({
     password: yup.string().required('Please input correct password!'),
 })
 
-export default function UserForm () {
-    return (
+function NewUserForm() {
+    return(
         <Formik
+            validationSchema={validation}
             render={props => {
                 return (
                     <Form>
