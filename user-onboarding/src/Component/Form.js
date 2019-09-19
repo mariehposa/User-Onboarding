@@ -25,8 +25,20 @@ export default function UserForm () {
             })
     }, []);
 
-    const addUser = () => {
-        const
+    //For onSubmit
+    const addUser = (formValues, actions) => {
+        const userToSubmit = {
+            name: formValues.name,
+            email: formValues.email,
+            password: formValues.password,
+        };
+        
+        axios.post(userApi, userToSubmit)
+            .then(res => {
+                const newlyCreatedUserFromServer = res.data;
+                setUserList(userList.concat(newlyCreatedUserFromServer));
+                actions.resetForm();
+            });
     }
 
     return (
