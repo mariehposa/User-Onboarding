@@ -11,8 +11,9 @@ const initialUserForm = {
 }
 
 export default function UserForm () {
+    const [userList, setUserList] = useState([]);
+    const [userForm, setuserForm] = useState('');
 
-    
     return (
         <div>
             <NewUserForm />
