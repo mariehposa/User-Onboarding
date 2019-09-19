@@ -25,7 +25,7 @@ export default function UserForm () {
             })
     }, []);
 
-    //For onSubmit
+    //For onSubmit: to add new user to current user
     const addUser = (formValues, actions) => {
         const userToSubmit = {
             name: formValues.name,
@@ -43,10 +43,11 @@ export default function UserForm () {
 
     return (
         <div>
-            <NewUserForm />
+            <NewUserForm onSubmit={addUser} />
         </div>
     );
 }
+
 
 const validation = yup.object().shape({
     name: yup.string().required('Please enter correct name!'),
