@@ -9,6 +9,7 @@ const initialUserForm = {
     name: '',
     email: '',
     password: '',
+    terms: false
 }
 
 export default function UserForm () {
@@ -70,21 +71,26 @@ const validate = (formValues) => {
         errors.password = 'Please enter a valid password!';
     }
 
+    if (!formValues.terms){
+        errors.terms = "Read and accept terms"
+    }
+
     return errors;
 }
 
 //to check for letters and numbers
 const validation = yup.object().shape({
     name: yup.string().required('Please enter correct name!'),
-    email: yup.string().required('Please enter valid email!'),
+    email: yup.string().required('Please enter valid email!').email("Enter a valid email containing @"),
     password: yup.string().required('Please input correct password!'),
+    terms: yup.boolean().required("Rewuired field")
 })
 
 function NewUserForm({onSubmit}) {
     return(
         <Formik
             validationSchema= {validation}
-            initialValues={{name:"", email: "", password: ""}}
+            initialValues={initialUserForm}
             validate= {validate}
             onSubmit={onSubmit}
             render={props => {
@@ -110,8 +116,10 @@ function NewUserForm({onSubmit}) {
                         <br/>
                         <label>
                             Terms of service
-                            <Field name='checkbox' type='checkbox' />
+                            <Field name='terms' type='checkbox' />
+                            <ErrorMessage name='terms' component='div' />
                         </label>
+                        <br/>
                         <button type='submit'>Submit</button>
                     </Form>
                 )
